@@ -32,6 +32,10 @@ body {
   min-width: 100vw;
 }
 
+button {
+  cursor: pointer;
+}
+
 /* Todo */
 .todo-container {
   width: clamp(320px, 60vw, 700px);
