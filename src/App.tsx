@@ -27,7 +27,7 @@ function App() {
 	 */
 	const addTodo = (content: string): void => {
 		const newTodo = {
-			id: Math.floor(Math.random() * 10000),
+			id: Math.max(...todos.map((todo) => todo.id), 0) + 1,
 			content,
 			isCompleted: false,
 		};
