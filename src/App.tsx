@@ -138,6 +138,9 @@ function App() {
 			<button className="sort-btn" onClick={() => setSort((sort) => !sort)}>
 				Sort Tasks
 			</button>
+			<button className="clear-btn" onClick={() => setTodos([])}>
+				Clear Tasks
+			</button>
 			<div className="todo-list">
 				{search.trim() !== ""
 					? filteredTodos.map((todo) => (

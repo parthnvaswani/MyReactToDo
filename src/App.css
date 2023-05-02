@@ -15,6 +15,7 @@
   --primary-color: #111;
   --secondary-color: #7d7d7d;
   --btn-color: #3bc722;
+  --btn-danger-color: #f00;
   --primary-font: 'Roboto', sans-serif;
 }
 
@@ -59,12 +60,18 @@ button {
   margin: 1rem 0;
 }
 
-.sort-btn {
+.sort-btn,
+.clear-btn {
   text-align: center;
-  width: 100%;
+  width: 45%;
   padding: 1rem;
   background-color: var(--btn-color);
   color: var(--primary-color);
+}
+
+.clear-btn {
+  background-color: var(--btn-danger-color);
+  margin-left: 10%;
 }
 
 .todo-list {
