@@ -49,6 +49,24 @@ button {
   text-align: center;
 }
 
+.search-input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--secondary-color);
+  outline: none;
+  background-color: transparent;
+  color: var(--secondary-color);
+  margin: 1rem 0;
+}
+
+.sort-btn {
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--btn-color);
+  color: var(--primary-color);
+}
+
 .todo-list {
   height: clamp(300px, 60vh, 600px);
   overflow-y: scroll;
@@ -61,7 +79,7 @@ button {
   align-items: center;
   padding: 0.5rem 1rem;
   margin: 0.5rem 0;
-  color: var(--secondary-color);
+  color: var(--primary-color);
   gap: 0.5rem;
   border: 1px solid var(--secondary-color);
 }

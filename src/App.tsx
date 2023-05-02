@@ -19,6 +19,12 @@ function App() {
 		}
 	});
 
+	const [filteredTodos, setFilteredTodos] = useState<ToDo[]>([]);
+
+	const [sort, setSort] = useState(false);
+
+	const [search, setSearch] = useState("");
+
 	/**
 	 * Add a new todo to the list
 	 *
@@ -26,6 +32,9 @@ function App() {
 	 * @returns {void}
 	 */
 	const addTodo = (content: string): void => {
+		if (content.trim() === "") {
+			return;
+		}
 		const newTodo = {
 			id: Math.max(...todos.map((todo) => todo.id), 0) + 1,
 			content,
@@ -53,7 +62,7 @@ function App() {
 	 * @returns {void}
 	 */
 	const editTodo = (id: number, content: string): void => {
-		if (content === "") {
+		if (content.trim() === "") {
 			return;
 		}
 		const newTodos = todos.map((todo) => {
@@ -91,19 +100,64 @@ function App() {
 		localStorage.setItem("todos", JSON.stringify(todos));
 	}, [todos]);
 
+	useEffect(() => {
+		if (sort) {
+			const newTodos = [...todos].sort((a, b) => {
+				if (a.isCompleted && !b.isCompleted) {
+					return 1;
+				} else if (!a.isCompleted && b.isCompleted) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
+			setTodos(newTodos);
+		} else {
+			const newTodos = [...todos].sort((a, b) => a.id - b.id);
+			setTodos(newTodos);
+		}
+	}, [sort, todos]);
+
+	useEffect(() => {
+		const newTodos = [...todos].filter((todo) =>
+			todo.content.toLowerCase().includes(search.toLowerCase())
+		);
+		setFilteredTodos(newTodos);
+	}, [search, todos]);
+
 	return (
 		<div className="todo-container">
 			<h1 className="title">ToDo App</h1>
+			<input
+				className="search-input"
+				type="text"
+				placeholder="Search..."
+				value={search}
+				onChange={(e) => setSearch(e.target.value)}
+			/>
+			<button className="sort-btn" onClick={() => setSort((sort) => !sort)}>
+				Sort Tasks
+			</button>
 			<div className="todo-list">
-				{todos.map((todo) => (
-					<ToDoCard
-						key={todo.id}
-						{...todo}
-						deleteTodo={deleteTodo}
-						editTodo={editTodo}
-						toggleTodo={toggleTodo}
-					/>
-				))}
+				{search.trim() !== ""
+					? filteredTodos.map((todo) => (
+							<ToDoCard
+								key={todo.id}
+								{...todo}
+								deleteTodo={deleteTodo}
+								editTodo={editTodo}
+								toggleTodo={toggleTodo}
+							/>
+					  ))
+					: todos.map((todo) => (
+							<ToDoCard
+								key={todo.id}
+								{...todo}
+								deleteTodo={deleteTodo}
+								editTodo={editTodo}
+								toggleTodo={toggleTodo}
+							/>
+					  ))}
 			</div>
 			<ToDoForm addTodo={addTodo} />
 		</div>

@@ -1,5 +1,9 @@
 import { useState, useRef } from "react";
-import { faPen, faTrashCan, faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import {
+	faPen,
+	faTrashCan,
+	faFloppyDisk,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface ToDoCardProps {
@@ -8,16 +12,19 @@ interface ToDoCardProps {
 	isCompleted: boolean;
 	deleteTodo: (id: number) => void;
 	editTodo: (id: number, content: string) => void;
-    toggleTodo: (id: number) => void;
+	toggleTodo: (id: number) => void;
 }
 
 function ToDoCard(todo: ToDoCardProps) {
 	const { id, content, isCompleted, deleteTodo, editTodo, toggleTodo } = todo;
 	const [isEditing, setIsEditing] = useState(false);
-    const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	return (
-		<div className="todo-card">
+		<div
+			className="todo-card"
+			style={{ backgroundColor: isCompleted ? "lightgreen" : "inherit" }}
+		>
 			{isEditing ? (
 				<input
 					type="text"
@@ -26,11 +33,7 @@ function ToDoCard(todo: ToDoCardProps) {
 					ref={inputRef}
 				/>
 			) : (
-				<p
-					className="todo-content"
-					style={{ textDecoration: isCompleted ? "line-through" : "none" }}
-					onClick={() => toggleTodo(id)}
-				>
+				<p className="todo-content" onClick={() => toggleTodo(id)}>
 					{content}
 				</p>
 			)}
