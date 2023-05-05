@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import "./App.css";
 import ToDoCard from "./components/ToDoCard";
 import ToDoForm from "./components/ToDoForm";
@@ -18,8 +18,6 @@ function App() {
 			return [];
 		}
 	});
-
-	const [filteredTodos, setFilteredTodos] = useState<ToDo[]>([]);
 
 	const [sort, setSort] = useState(false);
 
@@ -118,12 +116,13 @@ function App() {
 		}
 	}, [sort, todos]);
 
-	useEffect(() => {
-		const newTodos = [...todos].filter((todo) =>
-			todo.content.toLowerCase().includes(search.toLowerCase())
-		);
-		setFilteredTodos(newTodos);
-	}, [search, todos]);
+	const finalTodos = useMemo(
+		() =>
+			todos.filter((todo) =>
+				todo.content.toLowerCase().includes(search.toLowerCase())
+			),
+		[search, todos]
+	);
 
 	return (
 		<div className="todo-container">
@@ -142,25 +141,15 @@ function App() {
 				Clear Tasks
 			</button>
 			<div className="todo-list">
-				{search.trim() !== ""
-					? filteredTodos.map((todo) => (
-							<ToDoCard
-								key={todo.id}
-								{...todo}
-								deleteTodo={deleteTodo}
-								editTodo={editTodo}
-								toggleTodo={toggleTodo}
-							/>
-					  ))
-					: todos.map((todo) => (
-							<ToDoCard
-								key={todo.id}
-								{...todo}
-								deleteTodo={deleteTodo}
-								editTodo={editTodo}
-								toggleTodo={toggleTodo}
-							/>
-					  ))}
+				{finalTodos.map((todo) => (
+					<ToDoCard
+						key={todo.id}
+						{...todo}
+						deleteTodo={deleteTodo}
+						editTodo={editTodo}
+						toggleTodo={toggleTodo}
+					/>
+				))}
 			</div>
 			<ToDoForm addTodo={addTodo} />
 		</div>
