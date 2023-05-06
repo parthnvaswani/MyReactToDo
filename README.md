@@ -1,6 +1,6 @@
 # ToDo App
 ## Description
-This is a simple ToDo app that allows you to add, edit, and delete tasks. It also allows you to mark tasks as complete. The app is built using React and Vite.
+This is a simple ToDo app that allows you to add, edit, and delete tasks. It also allows you to mark tasks as complete. The app is built using React and Vite. It is a PWA and can be installed on your device. It is also responsive and can work offline. It stores data in local storage. It has a perfect Lighthouse score. It is hosted on Netlify. You can view the app [here](https://parth-react-todo.netlify.app/).
 ## Table of Contents
 - [ToDo App](#todo-app)
   - [Description](#description)
@@ -24,5 +24,6 @@ This is a simple ToDo app that allows you to add, edit, and delete tasks. It als
 3. It is installable
 4. It is responsive
 5. It stores data in local storage
+6. Perfect Lighthouse score
 ## License
 GNU GPLv3
